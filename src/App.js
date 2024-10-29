@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 import ProductsList from './pages/Products/ProductsList';
 import ProductDetails from './pages/Products/ProductDetails';
 import ProductEdit from './pages/Products/ProductEdit';
@@ -15,9 +17,11 @@ import UserEdit from './pages/Users/UserEdit';
 
 const App = () => (
   <Router>
-    <Header /> {/* Place the Header component here */}
+    <Header />
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/products/:id/edit" element={<ProductEdit />} />

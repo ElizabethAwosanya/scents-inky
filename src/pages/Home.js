@@ -1,6 +1,8 @@
+// src/pages/Home.js
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Button from '../components/ui/Button';
-import Input from '../components/ui/Input';
 import {
   Card,
   CardContent,
@@ -17,6 +19,8 @@ const perfumes = [
 ];
 
 export default function Home() {
+  const { isLoggedIn } = useAuth(); // Use authentication state from context
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -66,11 +70,14 @@ export default function Home() {
               </p>
               <div className="w-full max-w-sm space-y-2 mt-4">
                 <Button className="w-full" asChild>
-                  <a href="/account">Create Your Account</a>
+                  <Link to="/signup">Create Your Account</Link>
                 </Button>
-                <Button className="w-full" variant="outline" asChild>
-                  <a href="/orders">View Your Orders</a>
-                </Button>
+                {/* Conditionally render View Orders if logged in */}
+                {isLoggedIn && (
+                  <Button className="w-full" variant="outline" asChild>
+                    <Link to="/orders">View Your Orders</Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>
