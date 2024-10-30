@@ -119,7 +119,7 @@ const ProductsList = () => {
               <CardContent>
                 <CardTitle>{product.name}</CardTitle>
                 <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-                <p className="text-lg font-semibold">Price: ${product.price.toFixed(2)}</p>
+                <p className="text-lg font-semibold">Price: £{Number(product.price).toFixed(2)}</p>
                 <p className="text-sm text-gray-500">Quantity: {product.quantity}</p>
               </CardContent>
               <CardFooter>
