@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getProduct } from '../../api/products';  // Removed unused updateProduct import
+import { getProduct } from '../../api/products';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL; 
@@ -20,7 +20,7 @@ const ProductEdit = () => {
     const fetchProduct = async () => {
       const data = await getProduct(id);
       setFormData(data);
-      setCurrentImage(data.image_url); // Assuming the API returns `image_url` as the URL of the current image
+      setCurrentImage(data.image_url); 
     };
     fetchProduct();
   }, [id]);
@@ -59,8 +59,9 @@ const ProductEdit = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Edit Product</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6 max-w-lg mx-auto">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Name:</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
           <input
+            id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -69,8 +70,9 @@ const ProductEdit = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Description:</label>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
           <textarea
+            id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -78,8 +80,9 @@ const ProductEdit = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Price:</label>
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price:</label>
           <input
+            id="price"
             name="price"
             type="number"
             value={formData.price}
@@ -89,8 +92,9 @@ const ProductEdit = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Quantity:</label>
+          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity:</label>
           <input
+            id="quantity"
             name="quantity"
             type="number"
             value={formData.quantity}
@@ -106,8 +110,9 @@ const ProductEdit = () => {
           ) : (
             <p className="text-gray-500">No image available</p>
           )}
-          <label className="block text-sm font-medium text-gray-700 mt-2">Replace Image:</label>
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700 mt-2">Replace Image:</label>
           <input
+            id="image"
             type="file"
             onChange={handleFileChange}
             className="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"

@@ -1,4 +1,3 @@
-// src/pages/Products/ProductDetails.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,6 +9,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -18,6 +18,7 @@ const ProductDetails = () => {
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product details:", error);
+        setError('Failed to load product details.');
       }
     };
     fetchProduct();
@@ -26,7 +27,7 @@ const ProductDetails = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`${API_URL}/products/${id}`);
-      navigate('/products'); // Redirect to products list after deletion
+      navigate('/products');
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -36,6 +37,7 @@ const ProductDetails = () => {
     navigate(`/products/${id}/edit`);
   };
 
+  if (error) return <div>{error}</div>;
   if (!product) return <div>Loading...</div>;
 
   return (
