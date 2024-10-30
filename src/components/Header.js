@@ -1,7 +1,7 @@
 // src/components/Header.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, User, Search, Heart } from 'lucide-react';
+import { ShoppingCart, Search } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,9 +14,6 @@ const Header = () => {
           <Link to="/" className="text-lg font-bold mr-8">Scents Inky</Link>
           <nav className="hidden md:flex space-x-6 text-sm font-medium">
             <Link to="/products" className="text-gray-700 hover:text-black">Products</Link>
-            <Link to="/orders" className="text-gray-700 hover:text-black">Orders</Link>
-            <Link to="/users" className="text-gray-700 hover:text-black">Users</Link>
-            <Link to="/about" className="text-gray-700 hover:text-black">About</Link>
           </nav>
         </div>
 
@@ -31,9 +28,6 @@ const Header = () => {
             />
           </div>
           <button className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600">
-            <User className="h-5 w-5" />
-          </button>
-            <button className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600">
             <ShoppingCart className="h-5 w-5" />
           </button>
         </div>
@@ -49,9 +43,6 @@ const Header = () => {
           <div className="absolute top-16 left-0 right-0 bg-white shadow-md md:hidden">
             <nav className="flex flex-col space-y-4 p-4">
               <Link to="/products" className="text-gray-700 hover:text-black">Products</Link>
-              <Link to="/orders" className="text-gray-700 hover:text-black">Orders</Link>
-              <Link to="/users" className="text-gray-700 hover:text-black">Users</Link>
-              <Link to="/about" className="text-gray-700 hover:text-black">About</Link>
             </nav>
           </div>
         )}
