@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Button from '../components/ui/Button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../components/ui/Card';
 
 const API_URL = process.env.REACT_APP_API_URL; 
@@ -59,7 +58,6 @@ export default function Home() {
                     <p className="text-sm text-gray-500">Quantity: {product.quantity}</p>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Order Now</Button>
                   </CardFooter>
                 </Card>
               ))}

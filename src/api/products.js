@@ -22,6 +22,8 @@ export const updateProduct = async (id, data) => {
   return response.data;
 };
 
+
+
 export const deleteProduct = async (id) => {
   const response = await axios.delete(`${API_URL}/products/${id}`);
   return response.data;
