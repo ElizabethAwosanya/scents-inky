@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black text-center">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-indigo-950 text-center">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-white">
@@ -34,16 +34,12 @@ export default function Home() {
               <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
                 Explore our curated collection of exquisite perfumes and find the perfect fragrance that speaks to you.
               </p>
-              <div className="space-x-4 mt-4">
-                <Button className="bg-white text-black hover:bg-gray-200">Shop Now</Button>
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">Learn More</Button>
-              </div>
             </div>
           </div>
         </section>
 
         {/* Featured Perfumes Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-indigo-100">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold text-center sm:text-5xl mb-12">Featured Perfumes</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -72,7 +68,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full items-center px-4 md:px-6 border-t text-gray-500">
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full items-center px-4 md:px-6 border-t text-gray-700">
         <p className="text-xs">© 2024 Scents Inky. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <a className="text-xs hover:underline" href="#">
