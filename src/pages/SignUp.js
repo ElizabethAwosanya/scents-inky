@@ -1,6 +1,6 @@
-// src/pages/SignUp.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../api/auth';
 import Button from '../components/ui/Button';
 import { useAuth } from '../context/AuthContext';
 
@@ -8,22 +8,30 @@ const SignUp = () => {
   const { login } = useAuth(); // Use context to set logged-in state after sign-up
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement sign-up API request here
-    login(); // Assume user is successfully registered and log them in
-    navigate('/'); // Redirect to home after successful sign-up
+    setError(null); // Reset error message
+
+    try {
+      const userData = await registerUser(formData);
+      login(); // Set user as logged in
+      navigate('/'); // Redirect to home after successful sign-up
+    } catch (err) {
+      setError(err.message || 'Failed to register');
+    }
   };
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-12">
       <h2 className="text-3xl font-bold mb-6 text-center">Create an Account</h2>
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
         <input
           type="text"
