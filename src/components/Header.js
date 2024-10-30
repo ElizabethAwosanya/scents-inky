@@ -1,18 +1,9 @@
 // src/components/Header.js
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearch = (event) => {
-    if (event.key === 'Enter' && searchQuery.trim()) {
-      navigate(`/products?search=${searchQuery.trim()}`);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
@@ -23,21 +14,6 @@ const Header = () => {
           <nav className="hidden md:flex space-x-6 text-sm font-medium">
             <Link to="/products" className="text-gray-700 hover:text-black">Products</Link>
           </nav>
-        </div>
-
-        {/* Search Input */}
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <input
-              className="pl-10 pr-4 py-2 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              placeholder="Search perfumes..."
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearch} // Triggers search on 'Enter' key press
-            />
-          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
