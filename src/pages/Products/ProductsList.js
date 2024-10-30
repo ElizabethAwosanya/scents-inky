@@ -8,7 +8,9 @@ const API_URL = process.env.REACT_APP_API_URL; // Make sure this points to your 
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '', quantity: '', image: null });
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Fetch products from the backend
   useEffect(() => {
@@ -16,12 +18,22 @@ const ProductsList = () => {
       try {
         const response = await axios.get(`${API_URL}/products`);
         setProducts(response.data);
+        setFilteredProducts(response.data); // Initially show all products
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
   }, []);
+
+  // Filter products based on the search term
+  useEffect(() => {
+    const results = products.filter(product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(results);
+  }, [searchTerm, products]);
 
   // Handle input change for text fields
   const handleInputChange = (e) => {
@@ -59,6 +71,17 @@ const ProductsList = () => {
   return (
     <div className="container mx-auto px-4 md:px-6 py-8">
       <h1 className="text-3xl font-bold mb-8">Products</h1>
+
+      {/* Search Input */}
+      <div className="mb-6">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search products..."
+          className="border border-gray-300 rounded px-4 py-2 w-full md:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        />
+      </div>
 
       {/* Product Creation Form */}
       <div className="bg-white shadow rounded-lg p-6 mb-12">
@@ -111,7 +134,7 @@ const ProductsList = () => {
       <div>
         <h2 className="text-2xl font-semibold mb-6">Available Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Card key={product.id} className="hover:shadow-lg transition-shadow duration-200">
               <CardHeader>
                 <img src={product.image_url} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
