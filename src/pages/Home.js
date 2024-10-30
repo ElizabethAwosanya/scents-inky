@@ -1,25 +1,26 @@
-// src/pages/Home.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from '../components/ui/Button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '../components/ui/Card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../components/ui/Card';
 
-const perfumes = [
-  { id: 1, name: "Floral Bliss", price: 89.99, image: "/placeholder.svg?height=200&width=200" },
-  { id: 2, name: "Ocean Breeze", price: 79.99, image: "/placeholder.svg?height=200&width=200" },
-  { id: 3, name: "Midnight Musk", price: 99.99, image: "/placeholder.svg?height=200&width=200" },
-  { id: 4, name: "Citrus Splash", price: 69.99, image: "/placeholder.svg?height=200&width=200" },
-];
+const API_URL = process.env.REACT_APP_API_URL; 
+const UPLOADS_URL = process.env.REACT_APP_UPLOADS_URL;
 
 export default function Home() {
-  const { isLoggedIn } = useAuth(); // Use authentication state from context
+  const [products, setProducts] = useState([]);
+
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/products`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -40,49 +41,37 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Featured Perfumes Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold text-center sm:text-5xl mb-12">Featured Perfumes</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {perfumes.map((perfume) => (
-                <Card key={perfume.id}>
+              {products.slice(0, 4).map((product) => (
+                <Card key={product.id} className="hover:shadow-lg transition-shadow duration-200">
                   <CardHeader>
-                    <img src={perfume.image} alt={perfume.name} className="w-full h-48 object-cover" />
+                    <img
+                      src={product.image ? `${UPLOADS_URL}/${product.image}` : '/placeholder.svg'}
+                      alt={product.name}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
                   </CardHeader>
                   <CardContent>
-                    <CardTitle>{perfume.name}</CardTitle>
-                    <p className="text-2xl font-bold">${perfume.price.toFixed(2)}</p>
+                    <CardTitle>{product.name}</CardTitle>
+                    <p className="text-sm text-gray-600 mb-2">{product.description}</p>
+                    <p className="text-lg font-semibold">Price: £{Number(product.price).toFixed(2)}</p>
+                    <p className="text-sm text-gray-500">Quantity: {product.quantity}</p>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full">Order Now</Button>
+                    <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Order Now</Button>
                   </CardFooter>
                 </Card>
               ))}
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 text-center">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Your Fragrance Journey</h2>
-              <p className="max-w-[900px] text-gray-500 md:text-xl">
-                Create an account to save your favorite scents, track your orders, and receive personalized recommendations.
-              </p>
-              <div className="w-full max-w-sm space-y-2 mt-4">
-                <Button className="w-full" asChild>
-                  <Link to="/signup">Create Your Account</Link>
-                </Button>
-                {/* Conditionally render View Orders if logged in */}
-                {isLoggedIn && (
-                  <Button className="w-full" variant="outline" asChild>
-                    <Link to="/orders">View Your Orders</Link>
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
+
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full items-center px-4 md:px-6 border-t text-gray-500">
         <p className="text-xs">© 2024 Scents Inky. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
