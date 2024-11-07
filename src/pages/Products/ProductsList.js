@@ -1,11 +1,11 @@
 // src/pages/Products/ProductsList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom'; 
 import Button from '../../components/ui/Button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../components/ui/Card';
 
-const API_URL = process.env.REACT_APP_API_URL; // Make sure this points to your backend API
+const API_URL = process.env.REACT_APP_API_URL; 
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);

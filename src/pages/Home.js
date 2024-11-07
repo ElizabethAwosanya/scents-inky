@@ -67,16 +67,17 @@ export default function Home() {
       </main>
 
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full items-center px-4 md:px-6 border-t text-gray-700">
-        <p className="text-xs">© 2024 Scents Inky. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:underline" href="#">
-            Terms of Service
-          </a>
-          <a className="text-xs hover:underline" href="#">
-            Privacy
-          </a>
-        </nav>
-      </footer>
+  <p className="text-xs">© 2024 Scents Inky. All rights reserved.</p>
+  <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+    <button className="text-xs hover:underline text-left" onClick={() => alert('Terms of Service')}>
+      Terms of Service
+    </button>
+    <button className="text-xs hover:underline text-left" onClick={() => alert('Privacy Policy')}>
+      Privacy
+    </button>
+  </nav>
+</footer>
+
     </div>
   );
 }
